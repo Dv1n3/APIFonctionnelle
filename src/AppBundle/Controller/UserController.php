@@ -58,10 +58,11 @@ class UserController extends Controller
             ->find($request->get('id'));
 
         if (empty($user)) {
-            return \FOS\RestBundle\View\View::create(['message' => 'User not found'], Response::HTTP_NOT_²FOUND);
+            return \FOS\RestBundle\View\View::create(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
         }
         return $user;
     }
+
 
     /**
      * @Rest\View(statusCode=Response::HTTP_CREATED)
@@ -99,8 +100,7 @@ class UserController extends Controller
             ->getRepository('AppBundle:User')
             ->find($request->get('id'));
 
-        if (empty($user))
-        {
+        if (empty($user)) {
             return \FOS\RestBundle\View\View::create(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
         }
 
@@ -108,14 +108,12 @@ class UserController extends Controller
 
         $form->submit($request->request->all(), false);
 
-        if($form->isValid())
-        {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->merge($user);
             $em->flush();
             return $user;
-        }
-        else{
+        } else {
             return $form;
         }
     }
