@@ -30,14 +30,14 @@ class UserController extends Controller
      * @param Request $request
      * @return View|JsonResponse
      */
-    public function getUsersAction(Request $request)
+    public function getUsersAction()
     {
         $users = $this->getDoctrine()->getManager()
             ->getRepository('AppBundle:User')
             ->findAll();
 
         if (empty($users)) {
-            return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
+            return \FOS\RestBundle\View\View::create(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
         }
         return $users;
 
@@ -51,7 +51,7 @@ class UserController extends Controller
      * @param Request $request
      * @return View|JsonResponse
      */
-    public function getUserAction($id, Request $request)
+    public function getUserAction(Request $request)
     {
         $user = $this->getDoctrine()->getManager()
             ->getRepository('AppBundle:User')
@@ -119,5 +119,4 @@ class UserController extends Controller
             return $form;
         }
     }
-
 }

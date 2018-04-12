@@ -28,7 +28,7 @@ class GroupeController extends Controller
      * @param Request $request
      * @return View|JsonResponse
      */
-    public function getGroupsAction(Request $request)
+    public function getGroupsAction()
     {
         $groups = $this->getDoctrine()->getManager()
             ->getRepository('AppBundle:Groupe')
@@ -48,7 +48,7 @@ class GroupeController extends Controller
      * @param Request $request
      * @return View|JsonResponse
      */
-    public function getGroupAction($id, Request $request)
+    public function getGroupAction(Request $request)
     {
         $group = $this->getDoctrine()->getManager()
             ->getRepository('AppBundle:Groupe')
