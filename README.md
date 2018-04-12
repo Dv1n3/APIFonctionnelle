@@ -28,11 +28,13 @@
 ***Créer un utilisateur***
 **POST**                *localhost/APIFonctionnelle/web/users*
 
+La date de création est automatiquement définie à l'initialisation de l'objet
+
 {
         "email": "devaux_a@etna-alternance.net",
         "nom": "Devaux",
         "prenom": "Adrien",
-        "actif": true,
+        "actif": true
 }
 
 
@@ -53,5 +55,5 @@
         "email": "devaux_a@etna-alternance.net",
         "nom": "modifiedLastName",
         "prenom": "modifiedFirstName",
-        "actif": false,
+        "actif": false
 }
