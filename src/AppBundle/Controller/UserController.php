@@ -65,7 +65,7 @@ class UserController extends Controller
 
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_CREATED)
+     * @Rest\View(StatusCode = 201)
      * @Rest\Post("/users")
      *
      * @param Request $request
@@ -88,13 +88,27 @@ class UserController extends Controller
     }
 
     /**
-     * @Rest\View()
-     * @Rest\Patch("/users/{id}")
-     *
-     * @param Request $request
-     * @return User|null|object|\Symfony\Component\Form\FormInterface|JsonResponse
+     * #Modification Totale de User
+     * @Rest\View(StatusCode = 201)
+     * @Rest\Put("/users/{id}")
      */
-    public function patchUserAction(Request $request)
+    public function putUserAction(Request $request)
+    {
+        return $this->updateUserAction($request, true);
+    }
+
+    /**
+     * #Modification partielle de User
+     * @Rest\View(StatusCode = 201)
+     * @Rest\Patch("/users/{id}")
+     */
+    public function patchPlaceAction(Request $request)
+    {
+        return $this->updateUserAction($request, false);
+    }
+
+
+    public function updateUserAction(Request $request, $clearmissing)
     {
         $user = $this->getDoctrine()->getManager()
             ->getRepository('AppBundle:User')
@@ -106,7 +120,7 @@ class UserController extends Controller
 
         $form = $this->createForm(UserType::class, $user);
 
-        $form->submit($request->request->all(), false);
+        $form->submit($request->request->all(), $clearmissing);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();

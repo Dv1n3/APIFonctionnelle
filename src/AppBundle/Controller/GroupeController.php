@@ -10,7 +10,6 @@ namespace AppBundle\Controller;
 
 use AppBundle\Form\GroupeType;
 use AppBundle\Entity\Groupe;
-use ClassesWithParents\G;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,7 +60,7 @@ class GroupeController extends Controller
     }
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_CREATED)
+     * @Rest\View(StatusCode = 201)
      * @Rest\Post("/groups")
      *
      * @param Request $request
@@ -85,14 +84,30 @@ class GroupeController extends Controller
         }
     }
 
+
     /**
-     * @Rest\View()
+     * @Rest\View(StatusCode = 201)
+     * @Rest\Put("/groups/{id}")
+     */
+    public function putGroupAction(Request $request)
+    {
+        return $this->updateGroupAction($request, true);
+    }
+
+    /**
+     * @Rest\View(StatusCode = 201)
      * @Rest\Patch("/groups/{id}")
-     *
+     */
+    public function patchGroupAction(Request $request)
+    {
+        return $this->updateGroupAction($request, false);
+    }
+
+    /**
      * @param Request $request
      * @return Groupe|null|object|\Symfony\Component\Form\FormInterface|JsonResponse
      */
-    public function patchGroupAction(Request $request)
+    public function updateGroupAction(Request $request, $clearmissing)
     {
         $groupe = $this->getDoctrine()->getManager()
             ->getRepository('AppBundle:Groupe')
@@ -104,7 +119,7 @@ class GroupeController extends Controller
 
         $form = $this->createForm(GroupeType::class, $groupe);
 
-        $form->submit($request->request->all(), false);
+        $form->submit($request->request->all(), $clearmissing);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
