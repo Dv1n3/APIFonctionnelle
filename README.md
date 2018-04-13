@@ -1,3 +1,10 @@
+****Création de la base de données****
+
+php bin/console doctrine:database:create
+php bin/console doctrine:schema:update --force
+
+****Dans Postman****
+
 ***Créer un groupe***
 **POST**                *localhost/APIFonctionnelle/web/groups*
 
