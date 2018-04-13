@@ -104,7 +104,6 @@ class GroupeController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return Groupe|null|object|\Symfony\Component\Form\FormInterface|JsonResponse
      */
     public function updateGroupAction(Request $request, $clearmissing)
@@ -130,6 +129,5 @@ class GroupeController extends Controller
             return $form;
         }
     }
-
 
 }
